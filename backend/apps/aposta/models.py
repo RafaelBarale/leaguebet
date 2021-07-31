@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from apps.campeonato.models import Campeonato, Rodada, Jogo
+from apps.campeonato.models import Campeonato, Rodada, Jogo 
 
 
 class Aposta(models.Model):
