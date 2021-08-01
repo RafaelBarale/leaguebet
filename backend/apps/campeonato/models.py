@@ -23,6 +23,9 @@ class Classificacao(models.Model):
 
     def __str__(self):
         return self.campeonato
+    
+    class Meta:
+        unique_together = ('campeonato', 'clube',)
 
 
 class Rodada(models.Model):

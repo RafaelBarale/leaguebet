@@ -7,13 +7,15 @@ def listar_classificacao():
     return Classificacao.objects.all()
 
 
-def listar_classificacao_campeonato(campeonato):
-    try:
-        #classificacoes = Classificacao.objects.filter(campeonato=campeonato)
+def listar_classificacao_campeonato(campeonato, clube):
+    if clube is not None and campeonato is not None:
+        return Classificacao.objects.filter(campeonato=campeonato, clube=clube)
+    elif clube is None and campeonato is not None:
         return Classificacao.objects.filter(campeonato=campeonato)
-    except Classificacao.DoesNotExist:
+    elif clube is not None and campeonato is None:
+        return Classificacao.objects.filter(clube=clube)
+    else:
         return Http404
-    #return classificacoes
 
 
 def cadastrar_classificacao(classificacao_nova):

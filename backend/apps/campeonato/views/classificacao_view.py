@@ -21,7 +21,8 @@ class ClassificacaoList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CampeonatoDetails(APIView):
+
+class ClassificacaoDetails(APIView):
     def get(self, request, id, format=None):
         campeonato = campeonato_service.listar_campeonato_id(id)
         serializer = campeonato_serializer.CampeonatoSerializer(campeonato)
@@ -43,3 +44,16 @@ class CampeonatoDetails(APIView):
         campeonato = campeonato_service.listar_campeonato_id(id)
         campeonato_service.remover_campeonato(campeonato)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ClassifCamp(APIView):
+    def get(self, request, format=None):
+        query_params = request.query_params
+        campeonato = query_params.get('campeonato', None)
+        clube = query_params.get('clube', None)
+        if campeonato is None and clube is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+        lista_classificacao = classificacao_service.listar_classificacao_campeonato(campeonato, clube)
+        serializer = classificacao_serializer.ClassificacaoSerializer(lista_classificacao, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

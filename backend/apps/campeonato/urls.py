@@ -6,6 +6,8 @@ urlpatterns = [
     path('campdetails/<int:id>', campeonato_view.CampeonatoDetails.as_view() , name='campeonato-details'),
 
     path('classlist/', classificacao_view.ClassificacaoList.as_view(), name='classificacao-list'),
+    path('classcamp/', classificacao_view.ClassifCamp.as_view(), name='classcamp-list'),
+    
     #path('classdetails/<int:id>', classificacao_view.ClassificacaoDetails.as_view() , name='classificacao-details'),
     
     #path('jogolist/', jogo_view.JogoList.as_view(), name='jogo-list'),
