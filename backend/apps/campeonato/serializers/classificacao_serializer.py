@@ -10,5 +10,5 @@ class ClassificacaoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Classificacao
-        fields = ('id', 'pontos', 'jogos', 'vitorias', 'derrotas', 'empates', 'gols_pro', 'gols_contra', 'campeonato', )
+        fields = ('id', 'pontos', 'jogos', 'vitorias', 'derrotas', 'empates', 'gols_pro', 'gols_contra', 'campeonato','clube' )
         # fields = ('id', 'pontos', 'jogos', 'vitorias', 'derrotas', 'empates', 'gols_pro', 'gols_contra', 'campeonato', 'links', )

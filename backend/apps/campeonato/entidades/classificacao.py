@@ -1,13 +1,15 @@
 class Classificacao:
-    def __init__(self, pontos, jogos, vitorias, derrotas, empates, gols_pro, gols_contra, campeonato):
-        self.__pontos = pontos
-        self.__jogos = jogos
-        self.__vitorias = vitorias
-        self.__derrotas = derrotas
-        self.__empates = empates
-        self.__gols_pro = gols_pro
-        self.__gols_contra = gols_contra
+    #def __init__(self, pontos, jogos, vitorias, derrotas, empates, gols_pro, gols_contra, campeonato, clube):
+    def __init__(self, campeonato, clube):
+        self.__pontos = 0
+        self.__jogos = 0
+        self.__vitorias = 0
+        self.__derrotas = 0
+        self.__empates = 0
+        self.__gols_pro = 0
+        self.__gols_contra = 0
         self.__campeonato = campeonato
+        self.__clube = clube
 
     @property
     def pontos(self):
@@ -72,3 +74,11 @@ class Classificacao:
     @campeonato.setter
     def campeonato(self, campeonato):
         self.__campeonato = campeonato
+
+    @property
+    def clube(self):
+        return self.__clube
+
+    @clube.setter
+    def clube(self, clube):
+        self.__clube = clube

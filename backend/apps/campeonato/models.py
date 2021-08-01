@@ -18,8 +18,8 @@ class Classificacao(models.Model):
     empates = models.IntegerField(default=0, null=False, blank=False)
     gols_pro = models.IntegerField(default=0, null=False, blank=False)
     gols_contra = models.IntegerField(default=0, null=False, blank=False)
-    campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT)
-    clube = models.ManyToManyField(Clube)
+    campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT, null=False, blank=False)
+    clube = models.ForeignKey(Clube, on_delete=models.PROTECT, null=False, blank=False)
 
     def __str__(self):
         return self.campeonato
