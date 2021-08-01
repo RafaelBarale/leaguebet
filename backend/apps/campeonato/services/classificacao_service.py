@@ -6,8 +6,17 @@ def listar_classificacao():
     return Classificacao.objects.all()
 
 
-def cadastrar_campeonato(campeonato_novo):
-    return Classificacao.objects.create(nome=campeonato_novo.nome, temporada=campeonato_novo.temporada)
+def listar_clssificacao_campeonato(campeonato):
+    try:
+        #classificacoes = Classificacao.objects.filter(campeonato=campeonato)
+        return Classificacao.objects.filter(campeonato=campeonato)
+    except Classificacao.DoesNotExist:
+        return Http404
+    #return classificacoes
+
+
+def cadastrar_classificacao(classificacao_nova):
+    return Classificacao.objects.create(campeonato=classificacao_nova.campeonato, clube=classificacao_nova.clube)
 
 
 def listar_classificacao_id(id):

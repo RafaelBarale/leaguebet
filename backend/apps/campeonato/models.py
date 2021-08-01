@@ -11,13 +11,13 @@ class Campeonato(models.Model):
 
 
 class Classificacao(models.Model):
-    pontos = models.IntegerField(null=False, blank=False)
-    jogos = models.IntegerField(null=False, blank=False)
-    vitorias = models.IntegerField(null=False, blank=False)
-    derrotas = models.IntegerField(null=False, blank=False)
-    empates = models.IntegerField(null=False, blank=False)
-    gols_pro = models.IntegerField(null=False, blank=False)
-    gols_contra = models.IntegerField(null=False, blank=False)
+    pontos = models.IntegerField(default=0, null=False, blank=False)
+    jogos = models.IntegerField(default=0, null=False, blank=False)
+    vitorias = models.IntegerField(default=0, null=False, blank=False)
+    derrotas = models.IntegerField(default=0, null=False, blank=False)
+    empates = models.IntegerField(default=0, null=False, blank=False)
+    gols_pro = models.IntegerField(default=0, null=False, blank=False)
+    gols_contra = models.IntegerField(default=0, null=False, blank=False)
     campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT)
     clube = models.ManyToManyField(Clube)
 
