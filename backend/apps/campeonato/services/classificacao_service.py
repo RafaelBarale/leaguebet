@@ -7,7 +7,7 @@ def listar_classificacao():
     return Classificacao.objects.all()
 
 
-def listar_clssificacao_campeonato(campeonato):
+def listar_classificacao_campeonato(campeonato):
     try:
         #classificacoes = Classificacao.objects.filter(campeonato=campeonato)
         return Classificacao.objects.filter(campeonato=campeonato)
@@ -17,13 +17,13 @@ def listar_clssificacao_campeonato(campeonato):
 
 
 def cadastrar_classificacao(classificacao_nova):
-    classificacao_db = Classificacao.objects.create(campeonato=classificacao_nova.campeonato)
-    #return Classificacao.objects.create(campeonato=classificacao_nova.campeonato, clube=classificacao_nova.clube)
-    classificacao_db.save()
-    for i in classificacao_nova.clube:
-        clube = clube_service.listar_clube_id(i.id)
-        classificacao_db.clube.add(clube)
-    return classificacao_db
+    return Classificacao.objects.create(campeonato=classificacao_nova.campeonato, clube=classificacao_nova.clube)
+    #classificacao_db = Classificacao.objects.create(campeonato=classificacao_nova.campeonato)
+    #classificacao_db.save()
+    #for i in classificacao_nova.clube:
+    #    clube = clube_service.listar_clube_id(i.id)
+    #    classificacao_db.clube.add(clube)
+    #return classificacao_db
 
 
 def listar_classificacao_id(id):
