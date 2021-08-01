@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import campeonato_view, classificacao_view, jogo_view, rodada_view
 
 urlpatterns = [
@@ -7,6 +7,7 @@ urlpatterns = [
 
     path('classlist/', classificacao_view.ClassificacaoList.as_view(), name='classificacao-list'),
     path('classcamp/', classificacao_view.ClassifCamp.as_view(), name='classcamp-list'),
+    #re_path('classcamp/(?P<campeonato>[0-9]+)(?P<clube>[0-9]+)', classificacao_view.ClassifCamp.as_view(), name='classcamp-list'),
     
     #path('classdetails/<int:id>', classificacao_view.ClassificacaoDetails.as_view() , name='classificacao-details'),
     

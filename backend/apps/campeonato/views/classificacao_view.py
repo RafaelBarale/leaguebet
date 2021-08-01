@@ -52,8 +52,12 @@ class ClassifCamp(APIView):
         campeonato = query_params.get('campeonato', None)
         clube = query_params.get('clube', None)
         if campeonato is None and clube is None:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-            
+            errors = {
+                "campeonato": "Campo obrigatorio",
+                "clube": "Campo obrigatorio"
+            }
+            return Response(errors,status=status.HTTP_400_BAD_REQUEST)
+
         lista_classificacao = classificacao_service.listar_classificacao_campeonato(campeonato, clube)
         serializer = classificacao_serializer.ClassificacaoSerializer(lista_classificacao, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
