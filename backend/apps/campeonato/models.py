@@ -26,7 +26,7 @@ class Classificacao(models.Model):
         return self.campeonato
     
     class Meta:
-        unique_together = ('campeonato', 'clube',)
+        unique_together = ['campeonato', 'clube']
 
 
 class Rodada(models.Model):
@@ -37,7 +37,7 @@ class Rodada(models.Model):
         return str(self.campeonato) + ' ' + str(self.numero) + 'º Rodada'
     
     class Meta:
-        unique_together = ('numero', 'campeonato',)
+        unique_together = ['numero', 'campeonato']
 
 class Jogo(models.Model):
     gols_casa = models.IntegerField(null=True, blank=True)
