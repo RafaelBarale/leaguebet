@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework.exceptions import ValidationError
 from apps.clube.models import Clube
 
 
@@ -42,7 +43,7 @@ class Jogo(models.Model):
     gols_casa = models.IntegerField(null=True, blank=True)
     gols_visitante = models.IntegerField(null=True, blank=True)
     clube_casa = models.ForeignKey(Clube, related_name='clube_casa', on_delete=models.PROTECT)
-    clube_visitante = models.ForeignKey(Clube, related_name='clube_visitante', on_delete=models.PROTECT)
+    clube_visitante = models.ForeignKey(Clube, related_name='clube_visitante', on_delete=models.PROTECT,)
     rodada = models.ForeignKey(Rodada, on_delete=models.PROTECT)
     campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT)
 
@@ -50,4 +51,13 @@ class Jogo(models.Model):
         return str(self.clube_casa) + ' X ' + str(self.clube_visitante)
 
     class Meta:
-        unique_together = ('campeonato', 'clube_casa', 'clube_visitante',)
+        unique_together = [
+            ['campeonato', 'clube_casa', 'clube_visitante'],
+            ['campeonato','rodada', 'clube_casa'],
+            ['campeonato','rodada','clube_visitante'],
+        ]
+
+    # Validação de clubes, não podem ser iguais
+    def clean(self):
+        if self.clube_casa == self.clube_visitante:
+            raise ValidationError("Clube Casa e Clube Visitante deve ser diferentes")
