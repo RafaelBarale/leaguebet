@@ -27,10 +27,17 @@ def listar_classificacao_id(id):
         raise Http404
 
 
-def editar_classificacao(campeonato_antigo, campeonato_novo):
-    campeonato_antigo.nome = campeonato_novo.nome
-    campeonato_antigo.temporada = campeonato_novo.temporada
-    campeonato_antigo.save(force_update=True)
+def editar_classificacao(classificacao_antiga, classificacao_nova):
+    classificacao_antiga.pontos = classificacao_nova.pontos
+    classificacao_antiga.jogos = classificacao_nova.jogos
+    classificacao_antiga.vitorias = classificacao_nova.vitorias
+    classificacao_antiga.derrotas = classificacao_nova.derrotas
+    classificacao_antiga.empates = classificacao_nova.empates
+    classificacao_antiga.gols_pro = classificacao_nova.gols_pro
+    classificacao_antiga.gols_contra = classificacao_nova.gols_contra
+    classificacao_antiga.campeonato = classificacao_nova.campeonato
+    classificacao_antiga.clube = classificacao_nova.clube
+    classificacao_antiga.save(force_update=True)
 
 
 def remover_classificacao(campeonato):

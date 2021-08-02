@@ -1,13 +1,41 @@
 class Classificacao:
-    #def __init__(self, pontos, jogos, vitorias, derrotas, empates, gols_pro, gols_contra, campeonato, clube):
-    def __init__(self, campeonato, clube):
-        self.__pontos = 0
-        self.__jogos = 0
-        self.__vitorias = 0
-        self.__derrotas = 0
-        self.__empates = 0
-        self.__gols_pro = 0
-        self.__gols_contra = 0
+    def __init__(self, pontos, jogos, vitorias, derrotas, empates, gols_pro, gols_contra, campeonato, clube):
+    #def __init__(self, campeonato, clube):
+        if pontos is not None:
+            self.__pontos = pontos
+        else:
+            self.__pontos = 0
+        
+        if jogos is not None:
+            self.__jogos = jogos
+        else:
+            self.__jogos = 0
+        
+        if vitorias is not None:
+            self.__vitorias = vitorias
+        else:
+            self.__vitorias = 0
+
+        if derrotas is not None:
+            self.__derrotas = derrotas
+        else:
+            self.__derrotas = 0
+        
+        if empates is not None:
+            self.__empates = empates
+        else:
+            self.__empates = 0
+
+        if gols_pro is not None:
+            self.__gols_pro = gols_pro
+        else:
+            self.__gols_pro = 0
+
+        if gols_contra is not None:
+            self.__gols_contra = gols_contra
+        else:
+            self.__gols_contra = 0
+
         self.__campeonato = campeonato
         self.__clube = clube
 

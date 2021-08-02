@@ -44,6 +44,7 @@ class ClassificacaoDetails(APIView):
             
             classificacao_nova = classificacao.Classificacao(pontos=pontos, jogos=jogos, vitorias=vitorias, derrotas=derrotas,
                                 empates=empates, gols_pro=gols_pro, gols_contra=gols_contra, campeonato=campeonato, clube=clube)
+            
             classificacao_service.editar_classificacao(classificacao_antiga, classificacao_nova)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
