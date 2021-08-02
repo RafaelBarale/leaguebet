@@ -34,7 +34,9 @@ class Rodada(models.Model):
 
     def __str__(self):
         return str(self.campeonato) + ' ' + str(self.numero) + 'º Rodada'
-
+    
+    class Meta:
+        unique_together = ('numero', 'campeonato',)
 
 class Jogo(models.Model):
     gols_casa = models.IntegerField(null=True, blank=True)

@@ -24,26 +24,43 @@ class ClassificacaoList(APIView):
 
 class ClassificacaoDetails(APIView):
     def get(self, request, id, format=None):
-        campeonato = campeonato_service.listar_campeonato_id(id)
-        serializer = campeonato_serializer.CampeonatoSerializer(campeonato)
+        classificacao = classificacao_service.listar_classificacao_id(id)
+        serializer = classificacao_serializer.ClassificacaoSerializer(classificacao)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, id, format=None):
-        campeonato_antigo = campeonato_service.listar_campeonato_id(id)
-        serializer = campeonato_serializer.CampeonatoSerializer(campeonato_antigo, data=request.data)
+        classificacao_antiga = classificacao_service.listar_classificacao_id(id)
+        serializer = classificacao_serializer.ClassificacaoSerializer(classificacao_antiga, data=request.data)
         if serializer.is_valid():
-            nome = serializer.validated_data["nome"]
-            temporada = serializer.validated_data["temporada"]
+            pontos = serializer.validated_data["pontos"]
+            jogos = serializer.validated_data["jogos"]
+            vitorias = serializer.validated_data["vitorias"]
+            derrotas = serializer.validated_data["derrotas"]
+            empates = serializer.validated_data["empates"]
+            gols_pro = serializer.validated_data["gols_pro"]
+            gols_contra = serializer.validated_data["gols_contra"]
+            campeonato = serializer.validated_data["campeonato"]
+            clube = serializer.validated_data["clube"]
             
-            campeonato_novo = campeonato.Campeonato(nome=nome, temporada=temporada)
-            campeonato_service.editar_campeonato(campeonato_antigo, campeonato_novo)
+            classificacao_nova = classificacao.Classificacao(pontos=pontos, jogos=jogos, vitorias=vitorias, derrotas=derrotas,
+                                empates=empates, gols_pro=gols_pro, gols_contra=gols_contra, campeonato=campeonato, clube=clube)
+            classificacao_service.editar_classificacao(classificacao_antiga, classificacao_nova)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, id, format=None):
-        campeonato = campeonato_service.listar_campeonato_id(id)
-        campeonato_service.remover_campeonato(campeonato)
+        classificacao = classificacao_service.listar_classificacao_id(id)
+        classificacao_service.remover_classificacao(classificacao)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+    def patch(self, request, id, format=None):
+        classificacao = classificacao_service.listar_classificacao_id(id)
+        serializer = classificacao_serializer.ClassificacaoSerializer(classificacao, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save(force_update=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ClassifCamp(APIView):
