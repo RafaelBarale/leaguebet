@@ -5,6 +5,7 @@
 # remover_clube
 from django.http import Http404
 from ..models import Clube
+import os
 
 
 def listar_clubes():
@@ -28,4 +29,7 @@ def editar_clube(clube_antigo, clube_novo):
     clube_antigo.save(force_update=True)
 
 def remover_clube(clube):
+    #Apagando o escudo
+    clube.escudo.delete()
+
     clube.delete()
