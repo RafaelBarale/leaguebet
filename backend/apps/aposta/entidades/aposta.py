@@ -1,8 +1,7 @@
 class Aposta:
-    def __init__(self, usuario, campeonato, rodada):
+    def __init__(self, usuario, rodada):
         self.__usuario = usuario
         self.__rodada = rodada
-        self.__campeonato = campeonato
 
     @property
     def usuario(self):
@@ -20,10 +19,3 @@ class Aposta:
     def rodada(self, rodada):
         self.__rodada = rodada
 
-    @property
-    def campeonato(self):
-        return self.__campeonato
-
-    @campeonato.setter
-    def campeonato(self, campeonato):
-        self.__campeonato = campeonato

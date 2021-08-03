@@ -25,19 +25,33 @@ def listar_aposta_id(id):
 
 
 def listar_aposta_campeonato_rodada(usuario, campeonato, rodada):
-    lista = ''
+    lista = []
     if usuario is not None and rodada is not None:
         lista = Aposta.objects.filter(usuario=usuario, rodada=rodada)
     elif campeonato is not None and usuario is not None:
         #listando todas as rodadas do campeonato
         rodadas_camp = rodada_service.listar_rodada_campeonato(campeonato=campeonato)
-        lista = Aposta.objects.filter(rodada=rodadas_camp, usuario=usuario)
+        for rodada in rodadas_camp:
+            # Buscando as apostas para cada rodada 
+            apostas_rodada = Aposta.objects.filter(rodada=rodada,usuario=usuario)
+            # Se existir aposta para a rodada
+            if apostas_rodada:
+                # adicionando na lista de retorno
+                lista.append(apostas_rodada[0])
     elif usuario is not None:
         lista = Aposta.objects.filter(usuario=usuario)
+    elif rodada is not None:
+        lista = Aposta.objects.filter(rodada=rodada)
     elif campeonato is not None:
-         #listando todas as rodadas do campeonato
+        #listando todas as rodadas do campeonato
         rodadas_camp = rodada_service.listar_rodada_campeonato(campeonato=campeonato)
-        lista = Aposta.objects.filter(campeonato=campeonato)
+        for rodada in rodadas_camp:
+            # Buscando as apostas para cada rodada 
+            apostas_rodada = Aposta.objects.filter(rodada=rodada)
+            # Se existir aposta para a rodada
+            if apostas_rodada:
+                # adicionando na lista de retorno
+                lista.append(apostas_rodada[0])
     else:
         return Http404
     
