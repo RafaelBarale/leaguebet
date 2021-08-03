@@ -48,10 +48,13 @@ def listar_aposta_campeonato_rodada(usuario, campeonato, rodada):
         for rodada in rodadas_camp:
             # Buscando as apostas para cada rodada 
             apostas_rodada = Aposta.objects.filter(rodada=rodada)
+            for aposta in apostas_rodada:
+                lista.append(aposta)
+
             # Se existir aposta para a rodada
-            if apostas_rodada:
+            #if apostas_rodada:
                 # adicionando na lista de retorno
-                lista.append(apostas_rodada[0])
+            #    lista.append(apostas_rodada[0])
     else:
         return Http404
     
