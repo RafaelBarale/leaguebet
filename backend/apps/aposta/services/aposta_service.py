@@ -3,7 +3,6 @@
 # Cadastrar_aposta
 # editar_aposta (id)
 # remover_aposta
-from backend.apps.campeonato.models import Rodada
 from django.http.response import Http404
 from ..models import Aposta
 
@@ -13,7 +12,7 @@ def listar_apostas():
 
 
 def cadastrar_aposta(aposta_nova):
-    return Aposta.objects.create(usuario=aposta_nova.usuario, campeonato=aposta_nova.campeonato, rodada=aposta_nova.rodada )
+    return Aposta.objects.create(usuario=aposta_nova.usuario, rodada=aposta_nova.rodada )
 
 
 def listar_aposta_id(id):
@@ -42,7 +41,6 @@ def listar_aposta_campeonato_rodada(usuario, campeonato, rodada):
 def editar_aposta(aposta_antiga, aposta_nova):
     aposta_antiga.usuario = aposta_nova.usuario
     aposta_antiga.rodada = aposta_nova.rodada
-    aposta_antiga.campeonato = aposta_nova.campeonato
     aposta_antiga.save(force_update=True)
 
 

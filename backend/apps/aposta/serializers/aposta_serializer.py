@@ -10,5 +10,5 @@ class ApostaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Aposta
-        fields = ('id', 'usuario', 'campoeonato', 'rodada', )
-        # fields = ('id', 'usuario', 'campoeonato', 'rodada', 'links', )
+        fields = ('id', 'usuario', 'rodada', )
+        # fields = ('id', 'usuario', 'campeonato', 'rodada', 'links', )

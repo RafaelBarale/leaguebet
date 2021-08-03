@@ -5,14 +5,15 @@ from apps.campeonato.models import Campeonato, Rodada, Jogo
 
 class Aposta(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
-    campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT)
+    #campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT)
     rodada = models.ForeignKey(Rodada, on_delete=models.PROTECT)
 
     def __str__(self):
         return str(self.usuario) + ' ' + str(self.rodada)
 
     class Meta:
-        unique_together = ('usuario', 'campeonato', 'rodada',)
+        # unique_together = ('usuario', 'campeonato', 'rodada',)
+        unique_together = ('usuario', 'rodada',)
 
 
 class ApostaJogo(models.Model):
