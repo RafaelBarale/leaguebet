@@ -5,6 +5,8 @@
 # remover_aposta
 from django.http.response import Http404
 from ..models import Aposta
+from apps.campeonato.services import rodada_service
+#campeonato.services import rodada_service
 
 
 def listar_apostas():
@@ -24,13 +26,17 @@ def listar_aposta_id(id):
 
 def listar_aposta_campeonato_rodada(usuario, campeonato, rodada):
     lista = ''
-    if campeonato is not None and rodada is not None and usuario is not None:
-        lista = Aposta.objects.filter(usuario=usuario, campeonato=campeonato, rodada=rodada)
+    if usuario is not None and rodada is not None:
+        lista = Aposta.objects.filter(usuario=usuario, rodada=rodada)
     elif campeonato is not None and usuario is not None:
-        lista = Aposta.objects.filter(campeonato=campeonato, usuario=usuario)
-    elif campeonato is not None and rodada is not None:
-        lista = Aposta.objects.filter(campeonato=campeonato, rodada=rodada)
+        #listando todas as rodadas do campeonato
+        rodadas_camp = rodada_service.listar_rodada_campeonato(campeonato=campeonato)
+        lista = Aposta.objects.filter(rodada=rodadas_camp, usuario=usuario)
+    elif usuario is not None:
+        lista = Aposta.objects.filter(usuario=usuario)
     elif campeonato is not None:
+         #listando todas as rodadas do campeonato
+        rodadas_camp = rodada_service.listar_rodada_campeonato(campeonato=campeonato)
         lista = Aposta.objects.filter(campeonato=campeonato)
     else:
         return Http404
