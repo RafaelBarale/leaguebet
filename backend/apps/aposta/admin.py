@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ApostaJogo
+from .models import Aposta
 
 # Register your models here.
-admin.site.register(ApostaJogo)
+admin.site.register(Aposta)

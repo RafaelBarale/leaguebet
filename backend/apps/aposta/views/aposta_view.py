@@ -24,7 +24,7 @@ class ApostaList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ApostaJogoDetails(APIView):
+class ApostaDetails(APIView):
     def get(self, request, id, format=None):
         aposta = aposta_service.listar_aposta_id(id)
         serializer = aposta_serializer.ApostaSerializer(aposta)
@@ -36,9 +36,9 @@ class ApostaJogoDetails(APIView):
         if serializer.is_valid():
             gol_casa = serializer.validated_data["gol_casa"]
             gol_visitante = serializer.validated_data['gol_visitante']
-            aposta = serializer.validated_data["aposta"]
+            usuario = serializer.validated_data["usuario"]
             jogo = serializer.validated_data['jogo']
-            aposta_nova = aposta.Aposta(gol_casa=gol_casa,gol_visitante=gol_visitante, aposta=aposta, jogo=jogo)
+            aposta_nova = aposta.Aposta(gol_casa=gol_casa,gol_visitante=gol_visitante, usuario=usuario, jogo=jogo)
             aposta_service.editar_aposta(aposta_antiga, aposta_nova)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -59,7 +59,7 @@ class ApostaJogoDetails(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ApostaJogoCamp(APIView):
+class ApostaCamp(APIView):
     def get(self, request, format=None):
         query_params = request.query_params
         jogo = query_params.get('jogo', None)

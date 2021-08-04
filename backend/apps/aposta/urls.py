@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import apostajogo_view
+from .views import aposta_view
 
 urlpatterns = [
-    path('apostalist/', apostajogo_view.ApostaJogoList.as_view(), name='aposta-list'),
-    path('apostadetails/<int:id>', apostajogo_view.ApostaJogoDetails.as_view() , name='aposta-details'),
+    path('apostalist/', aposta_view.ApostaList.as_view(), name='aposta-list'),
+    path('apostadetails/<int:id>', aposta_view.ApostaDetails.as_view() , name='aposta-details'),
 
-    path('apostacamplist/', apostajogo_view.ApostaJogoCamp.as_view(), name='apostacamp-list'),  
+    path('apostacamplist/', aposta_view.ApostaCamp.as_view(), name='apostacamp-list'),  
 ]
