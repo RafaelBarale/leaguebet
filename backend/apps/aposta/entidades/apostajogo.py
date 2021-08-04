@@ -1,8 +1,8 @@
-class Aposta:
-    def __init__(self, gol_casa, gol_visitante, aposta, jogo):
+class ApostaJogo:
+    def __init__(self, gol_casa, gol_visitante, usuario, jogo):
         self.__gol_casa = gol_casa
         self.__gol_visitante = gol_visitante
-        self.__aposta = aposta
+        self.__usuario = usuario
         self.__jogo = jogo
 
     @property
@@ -22,17 +22,17 @@ class Aposta:
         self.__gol_visitante = gol_visitante
 
     @property
-    def aposta(self):
-        return self.__aposta
+    def usuario(self):
+        return self.__usuario
 
-    @aposta.setter
-    def aposta(self, aposta):
-        self.__aposta = aposta
+    @usuario.setter
+    def usuario(self, usuario):
+        self.__usuario = usuario
 
     @property
     def jogo(self):
         return self.__jogo
 
     @jogo.setter
-    def aposta(self, jogo):
+    def jogo(self, jogo):
         self.__jogo = jogo

@@ -5,52 +5,54 @@ from ..serializers import apostajogo_serializer
 from rest_framework import status
 from ..entidades import apostajogo
 
-class ApostaList(APIView):
+class ApostaJogoList(APIView):
     def get(self, request, format=None):
-        aposta = aposta_service.listar_apostas()
-        serializer = aposta_serializer.ApostaSerializer(aposta, many=True)
+        aposta = apostajogo_service.listar_apostajogo()
+        serializer = apostajogo_serializer.ApostaJogoSerializer(aposta, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK) 
 
     def post(self, request, format=None):
-        serializer = aposta_serializer.ApostaSerializer(data=request.data)
+        serializer = apostajogo_serializer.ApostaJogoSerializer(data=request.data)
         if serializer.is_valid():
-            
-            usuario = serializer.validated_data["usuario"]
-            rodada = serializer.validated_data['rodada']
-            aposta_nova = aposta.Aposta(usuario=usuario, rodada=rodada)
-            aposta_service.cadastrar_aposta(aposta_nova)
+            gol_casa = serializer.validated_data["gol_casa"]
+            gol_visitante = serializer.validated_data['gol_visitante']
+            aposta = serializer.validated_data["aposta"]
+            jogo = serializer.validated_data['jogo']
+            aposta_nova = apostajogo.Aposta(gol_casa=gol_casa,gol_visitante=gol_visitante, aposta=aposta, jogo=jogo)
+            apostajogo_service.cadastrar_apostajogo(aposta_nova)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ApostaDetails(APIView):
+class ApostaJogoDetails(APIView):
     def get(self, request, id, format=None):
-        aposta = aposta_service.listar_aposta_id(id)
-        serializer = aposta_serializer.ApostaSerializer(aposta)
+        aposta = apostajogo_service.listar_apostajogo_id(id)
+        serializer = apostajogo_serializer.ApostaJogoSerializer(aposta)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, id, format=None):
-        aposta_antiga = aposta_service.listar_aposta_id(id)
-        serializer = aposta_serializer.ApostaSerializer(aposta_antiga, data=request.data)
+        aposta_antiga = apostajogo_service.listar_apostajogo_id(id)
+        serializer = apostajogo_serializer.ApostaJogoSerializer(aposta_antiga, data=request.data)
         if serializer.is_valid():
-            
-            usuario = serializer.validated_data["usuario"]
-            rodada = serializer.validated_data['rodada']
-            aposta_nova = aposta.Aposta(usuario=usuario, rodada=rodada)
-            aposta_service.editar_aposta(aposta_antiga, aposta_nova)
+            gol_casa = serializer.validated_data["gol_casa"]
+            gol_visitante = serializer.validated_data['gol_visitante']
+            aposta = serializer.validated_data["aposta"]
+            jogo = serializer.validated_data['jogo']
+            aposta_nova = apostajogo.Aposta(gol_casa=gol_casa,gol_visitante=gol_visitante, aposta=aposta, jogo=jogo)
+            apostajogo_service.editar_aposta(aposta_antiga, aposta_nova)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, id, format=None):
-        aposta = aposta_service.listar_aposta_id(id)
-        aposta_service.remover_aposta(aposta)
+        aposta = apostajogo_service.listar_apostajogo_id(id)
+        apostajogo_service.remover_apostajogo(aposta)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
     def patch(self, request, id, format=None):
-        aposta = aposta_service.listar_aposta_id(id)
-        serializer = aposta_serializer.ApostaSerializer(aposta, data=request.data, partial=True)
+        aposta = apostajogo_service.listar_apostajogo_id(id)
+        serializer = apostajogo_serializer.ApostaJogoSerializer(aposta, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(force_update=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
