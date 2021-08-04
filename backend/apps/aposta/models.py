@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from apps.campeonato.models import Jogo 
 
 
-class ApostaJogo(models.Model):
+class Aposta(models.Model):
     gol_casa = models.IntegerField(null=False, blank=False)
     gol_visitante = models.IntegerField(null=False, blank=False)
     jogo = models.ForeignKey(Jogo, on_delete=models.PROTECT)

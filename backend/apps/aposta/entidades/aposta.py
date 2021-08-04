@@ -1,4 +1,4 @@
-class ApostaJogo:
+class Aposta:
     def __init__(self, gol_casa, gol_visitante, usuario, jogo):
         self.__gol_casa = gol_casa
         self.__gol_visitante = gol_visitante
