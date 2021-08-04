@@ -5,10 +5,10 @@
 # remover_aposta
 from django.http.response import Http404
 from ..models import ApostaJogo
-from apps.campeonato.services import rodada_service, jogo_service
+from apps.campeonato.services import jogo_service
 
 
-def listar_apostajogo():
+def listar_apostageral():
     return ApostaJogo.objects.all()
 
 
@@ -51,15 +51,15 @@ def listar_apostajogo(usuario, jogo):
 def listar_apostajogo_rodada(rodada, usuario):
     lista = []
     #Primeiro Listo todos os jogos da rodada
-    jogos_rodada = jogo_service.listar_jogo_campeonato_rodada(rodada=rodada)
+    jogos_rodada = jogo_service.listar_jogo_campeonato_rodada(rodada=rodada, campeonato=None)
     # Percorrendo os jogos da rodada, para buscar quais tem apostas vinculado
     for jogo in jogos_rodada:
-        lista.append(listar_apostajogo(jogo=jogo, usuario=usuario))
+        apostas = listar_apostajogo(jogo=jogo, usuario=usuario)
+        for aposta in apostas:
+            lista.append(aposta)
 
-    if lista:
-        return lista
-    else:
-        return Http404
+    return lista
+
 
 
 def editar_apostajogo(apostajogo_antiga, apostajogo_nova):

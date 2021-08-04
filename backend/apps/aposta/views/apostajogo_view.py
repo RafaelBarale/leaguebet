@@ -1,4 +1,3 @@
-from typing_extensions import NotRequired
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from ..services import apostajogo_service
@@ -8,7 +7,7 @@ from ..entidades import apostajogo
 
 class ApostaJogoList(APIView):
     def get(self, request, format=None):
-        aposta = apostajogo_service.listar_apostajogo()
+        aposta = apostajogo_service.listar_apostageral()
         serializer = apostajogo_serializer.ApostaJogoSerializer(aposta, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK) 
 
@@ -17,9 +16,9 @@ class ApostaJogoList(APIView):
         if serializer.is_valid():
             gol_casa = serializer.validated_data["gol_casa"]
             gol_visitante = serializer.validated_data['gol_visitante']
-            aposta = serializer.validated_data["aposta"]
+            usuario = serializer.validated_data["usuario"]
             jogo = serializer.validated_data['jogo']
-            aposta_nova = apostajogo.Aposta(gol_casa=gol_casa,gol_visitante=gol_visitante, aposta=aposta, jogo=jogo)
+            aposta_nova = apostajogo.ApostaJogo(gol_casa=gol_casa,gol_visitante=gol_visitante, usuario=usuario, jogo=jogo)
             apostajogo_service.cadastrar_apostajogo(aposta_nova)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
