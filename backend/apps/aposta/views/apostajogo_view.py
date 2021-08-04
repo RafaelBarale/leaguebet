@@ -1,3 +1,4 @@
+from typing_extensions import NotRequired
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from ..services import apostajogo_service
@@ -59,20 +60,24 @@ class ApostaJogoDetails(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ApostaCamp(APIView):
+class ApostaJogoCamp(APIView):
     def get(self, request, format=None):
         query_params = request.query_params
-        campeonato = query_params.get('campeonato', None)
+        jogo = query_params.get('jogo', None)
         usuario = query_params.get('usuario', None)
         rodada = query_params.get('rodada', None)
-        if campeonato is None and usuario is None and rodada is None:
+        if jogo is None and usuario is None and rodada is None:
             errors = {
-                'campeonato': "Campo Obrigatorio",
-                'usuario': "Campo obrigatorio",
-                'rodada': 'Campo Obrigatorio'
+                'ERROR': "Pelo menos um dos campos e obrigatorio 'jogo', 'usuario', 'rodada' "
             }
             return Response(errors,status=status.HTTP_400_BAD_REQUEST)
 
-        lista_aposta = aposta_service.listar_aposta_campeonato_rodada(usuario=usuario, campeonato=campeonato, rodada=rodada)
-        serializer = aposta_serializer.ApostaSerializer(lista_aposta, many=True)
+        if jogo is not None:
+            lista_aposta = apostajogo_service.listar_apostajogo(jogo=jogo, usuario=usuario)
+        elif rodada is not None:
+            lista_aposta = apostajogo_service.listar_apostajogo_rodada(rodada=rodada, usuario=usuario)
+        else:
+            lista_aposta = apostajogo_service.listar_apostajogo_usuario(usuario=usuario)
+
+        serializer = apostajogo_serializer.ApostaJogoSerializer(lista_aposta, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
