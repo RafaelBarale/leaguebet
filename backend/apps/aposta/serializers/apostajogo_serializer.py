@@ -5,7 +5,7 @@ from rest_framework import serializers
 from ..models import ApostaJogo
 
 
-class ApostaSerializer(serializers.ModelSerializer):
+class ApostaJogoSerializer(serializers.ModelSerializer):
     # links = serializers.SerializerMethodField()
 
     class Meta:
