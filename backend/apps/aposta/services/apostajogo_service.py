@@ -48,13 +48,13 @@ def listar_apostajogo(usuario, jogo):
     
     return lista
 
-def listar_apostajogo_rodada(rodada):
+def listar_apostajogo_rodada(rodada, usuario):
     lista = []
     #Primeiro Listo todos os jogos da rodada
     jogos_rodada = jogo_service.listar_jogo_campeonato_rodada(rodada=rodada)
     # Percorrendo os jogos da rodada, para buscar quais tem apostas vinculado
     for jogo in jogos_rodada:
-        lista.append(listar_apostajogo_jogo(jogo=jogo))
+        lista.append(listar_apostajogo(jogo=jogo, usuario=usuario))
 
     if lista:
         return lista
