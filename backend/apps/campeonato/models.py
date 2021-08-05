@@ -32,6 +32,7 @@ class Classificacao(models.Model):
 class Rodada(models.Model):
     numero = models.IntegerField(null=False, blank=False)
     campeonato = models.ForeignKey(Campeonato, on_delete=models.PROTECT, null=False)
+    fechada = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.campeonato) + ' ' + str(self.numero) + 'º Rodada'

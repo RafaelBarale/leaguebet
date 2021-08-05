@@ -1,6 +1,7 @@
 from django.db import models
+from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
-from apps.campeonato.models import Jogo 
+from apps.campeonato.models import Jogo, Rodada 
 
 
 class Aposta(models.Model):
@@ -14,3 +15,5 @@ class Aposta(models.Model):
 
     class Meta:
         unique_together = ('usuario', 'jogo',)
+
+    

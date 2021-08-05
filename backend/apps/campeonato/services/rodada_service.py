@@ -7,7 +7,7 @@ def listar_rodada():
 
 
 def cadastrar_rodada(rodada_nova):
-    return Rodada.objects.create(numero=rodada_nova.numero, campeonato=rodada_nova.campeonato)
+    return Rodada.objects.create(numero=rodada_nova.numero, campeonato=rodada_nova.campeonato, fechada=rodada_nova.fechada)
 
 
 def listar_rodada_id(id):
@@ -27,6 +27,7 @@ def listar_rodada_campeonato(campeonato):
 def editar_rodada(rodada_antiga, rodada_nova):
     rodada_antiga.numero = rodada_nova.numero
     rodada_antiga.campeonato = rodada_nova.campeonato
+    rodada_antiga.fechada = rodada_nova.fechada
     rodada_antiga.save(force_update=True)
 
 

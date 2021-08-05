@@ -10,5 +10,5 @@ class RodadaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rodada
-        fields = ('id', 'numero', 'campeonato', )
+        fields = ('id', 'numero', 'campeonato', 'fechada' )
         # fields = ('id', 'numero', 'campeonato', 'links', )

@@ -16,7 +16,8 @@ class RodadaList(APIView):
         if serializer.is_valid():
             campeonato = serializer.validated_data["campeonato"]
             numero = serializer.validated_data["numero"]
-            rodada_nova = rodada.Rodada(numero=numero, campeonato=campeonato)
+            fechada = serializer.validated_data["fechada"]
+            rodada_nova = rodada.Rodada(numero=numero, campeonato=campeonato, fechada=fechada)
             rodada_service.cadastrar_rodada(rodada_nova)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -34,7 +35,8 @@ class RodadaDetails(APIView):
         if serializer.is_valid():
             numero = serializer.validated_data["numero"]
             campeonato = serializer.validated_data["campeonato"]
-            rodada_nova = rodada.Rodada(numero=numero, campeonato=campeonato)
+            fechada = serializer.validated_data["fechada"]
+            rodada_nova = rodada.Rodada(numero=numero, campeonato=campeonato, fechada=fechada)
             rodada_service.editar_rodada(rodada_antiga, rodada_nova)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
