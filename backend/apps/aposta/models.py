@@ -1,7 +1,7 @@
+from django.db.models.deletion import PROTECT
 from django.db import models
-from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
-from apps.campeonato.models import Jogo, Rodada 
+from apps.campeonato.models import Jogo, Campeonato
 
 
 class Aposta(models.Model):
@@ -16,4 +16,16 @@ class Aposta(models.Model):
     class Meta:
         unique_together = ('usuario', 'jogo',)
 
-    
+
+class Pontuacao(models.Model):
+    campeonato = models.ForeignKey(Campeonato, on_delete=PROTECT)
+    vencedor = models.IntegerField(null=False, blank=False)
+    golCasa = models.IntegerField(null=False, blank=False)
+    golVisitante = models.IntegerField(null=False, blank=False)
+
+    def __str__(self):
+        return str(self.campeonato)
+
+    class Meta:
+        unique_together = ('campeonato',)
+

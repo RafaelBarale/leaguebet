@@ -5,7 +5,7 @@
 # remover_aposta
 from django.http.response import Http404
 from ..models import Aposta
-from apps.campeonato.services import jogo_service, rodada_service
+from apps.campeonato.services import jogo_service
 
 
 def listar_apostageral():
@@ -73,11 +73,3 @@ def editar_aposta(aposta_antiga, aposta_nova):
 def remover_aposta(aposta):
     aposta.delete()
 
-
-def valida_rodada(id_jogo):
-    # validação de rodada fechada ou não
-    # Buscando a rodada do jogo
-    rodada_jogo = jogo_service.listar_jogo_id(id=id_jogo)
-    #buscando a rodada pelo id
-    rodada = rodada_service.listar_rodada_id(id=rodada_jogo.id)
-    return rodada.fechada
