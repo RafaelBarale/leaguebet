@@ -5,6 +5,7 @@ from ..serializers import aposta_serializer
 from rest_framework import status
 from ..entidades import aposta
 
+
 class ApostaList(APIView):
     def get(self, request, format=None):
         aposta = aposta_service.listar_apostageral()
