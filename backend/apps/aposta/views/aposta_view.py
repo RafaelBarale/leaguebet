@@ -72,11 +72,11 @@ class ApostaCamp(APIView):
             return Response(errors,status=status.HTTP_400_BAD_REQUEST)
 
         if jogo is not None:
-            lista_aposta = apostajogo_service.listar_apostajogo(jogo=jogo, usuario=usuario)
+            lista_aposta = aposta_service.listar_aposta(jogo=jogo, usuario=usuario)
         elif rodada is not None:
-            lista_aposta = apostajogo_service.listar_apostajogo_rodada(rodada=rodada, usuario=usuario)
+            lista_aposta = aposta_service.listar_aposta_rodada(rodada=rodada, usuario=usuario)
         else:
-            lista_aposta = apostajogo_service.listar_apostajogo_usuario(usuario=usuario)
+            lista_aposta = aposta_service.listar_aposta_usuario(usuario=usuario)
 
-        serializer = apostajogo_serializer.ApostaJogoSerializer(lista_aposta, many=True)
+        serializer = aposta_serializer.ApostaSerializer(lista_aposta, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
