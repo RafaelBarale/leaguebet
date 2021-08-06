@@ -29,3 +29,14 @@ class Regra(models.Model):
     class Meta:
         unique_together = ('campeonato',)
 
+
+class Pontuacao(models.Model):
+    usuario = models.ForeignKey(User, on_delete=PROTECT)
+    campeonato = models.ForeignKey(Campeonato,on_delete=PROTECT)
+    pontos = models.IntegerField(null=True, blank=True, default=0)
+    
+    def __str__(self):
+        return str(self.usuario)
+
+    class Meta:
+        unique_together = ('usuario','campeonato',)
