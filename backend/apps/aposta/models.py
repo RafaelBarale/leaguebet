@@ -17,7 +17,7 @@ class Aposta(models.Model):
         unique_together = ('usuario', 'jogo',)
 
 
-class Pontuacao(models.Model):
+class Regra(models.Model):
     campeonato = models.ForeignKey(Campeonato, on_delete=PROTECT)
     vencedor = models.IntegerField(null=False, blank=False)
     golCasa = models.IntegerField(null=False, blank=False)

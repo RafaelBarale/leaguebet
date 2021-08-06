@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import aposta_view, pontuacao_view
+from .views import aposta_view, regra_view
 
 urlpatterns = [
     path('apostalist/', aposta_view.ApostaList.as_view(), name='aposta-list'),
@@ -7,6 +7,6 @@ urlpatterns = [
 
     path('apostacamplist/', aposta_view.ApostaCamp.as_view(), name='apostacamp-list'), 
 
-    path('pontuacaolist/', pontuacao_view.PontuacaoList.as_view(), name='pontuacao-list'),
-    path('pontuacaodetails/<int:id>', pontuacao_view.PontuacaoDetails.as_view() , name='pontuacao-details'), 
+    path('regralist/', regra_view.RegraList.as_view(), name='regra-list'),
+    path('regradetails/<int:id>', regra_view.RegraDetails.as_view() , name='regra-details'), 
 ]

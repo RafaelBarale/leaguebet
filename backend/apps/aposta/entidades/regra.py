@@ -1,4 +1,4 @@
-class Pontuacao:
+class Regra:
     def __init__(self, campeonato, vencedor, golCasa, golVisitante):
         self.__campeonato = campeonato
         self.__vencedor = vencedor
