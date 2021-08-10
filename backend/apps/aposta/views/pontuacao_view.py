@@ -1,3 +1,4 @@
+from apps.campeonato.services import campeonato_service
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from ..services import pontuacao_service
@@ -57,3 +58,9 @@ class PontuacaoDetails(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class PontuacaoClass(APIView):
+    def get(self, request, idcamp, format=None):
+        campeonato = campeonato_service.listar_campeonato_id(idcamp)
+        pontuacao = pontuacao_service.listar_pontuacao_campeonato(campeonato)
+        serializer = pontuacao_serializer.PontuacaoSerializer(pontuacao, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
