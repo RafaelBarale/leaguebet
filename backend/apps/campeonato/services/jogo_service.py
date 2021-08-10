@@ -1,4 +1,5 @@
 from django.http.response import Http404
+from apps.aposta.services import pontuacao_service
 from ..models import Jogo
 
 
@@ -36,7 +37,13 @@ def editar_jogo(jogo_antigo, jogo_novo):
     jogo_antigo.clube_visitante = jogo_novo.clube_visitante
     jogo_antigo.rodada = jogo_novo.rodada
     jogo_antigo.campeonato = jogo_novo.campeonato
-    jogo_antigo.save(force_update=True)
+#    jogo_antigo.save(force_update=True)
+    
+    #Executando a pontuação das apostas
+    if jogo_antigo.gols_casa is not None and jogo_antigo.gols_visitante is not None:
+        pontuacao_service.aplicar_pontuacao(jogo_antigo)
+    
+    jogo_antigo.save(force_update=True)               
 
 
 def remover_jogo(jogo):
