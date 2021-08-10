@@ -1,5 +1,6 @@
 from django.http.response import Http404
 from apps.aposta.services import pontuacao_service
+from ..services import classificacao_service
 from ..models import Jogo
 
 
@@ -39,10 +40,16 @@ def editar_jogo(jogo_antigo, jogo_novo):
     jogo_antigo.campeonato = jogo_novo.campeonato
 #    jogo_antigo.save(force_update=True)
     
-    #Executando a pontuação das apostas
+    # Executando a pontuação das apostas
+    # E atualizando a classificação do campeonato
     if jogo_antigo.gols_casa is not None and jogo_antigo.gols_visitante is not None:
+        #executa a pontuação das apostas
         pontuacao_service.aplicar_pontuacao(jogo_antigo)
-    
+        
+        # executa a atualização da classificação
+        classificacao_service.atualiza_classificacao(campeonato=jogo_antigo.campeonato, clube=jogo_antigo.clube_casa, golpro=jogo_antigo.gols_casa, golcontra=jogo_antigo.gols_visitante )
+        classificacao_service.atualiza_classificacao(campeonato=jogo_antigo.campeonato, clube=jogo_antigo.clube_visitante, golpro=jogo_antigo.gols_visitante, golcontra=jogo_antigo.gols_casa)
+   
     jogo_antigo.save(force_update=True)               
 
 

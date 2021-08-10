@@ -12,6 +12,8 @@ class PontuacaoList(APIView):
         pontuacao = pontuacao_service.listar_pontuacao()
         serializer = pontuacao_serializer.PontuacaoSerializer(pontuacao, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK) 
+'''
+#DEVE-SE CRIAR PONTUAÇÃO APENAS QUANDO ATUALIZAR OS JOGOS
 
     def post(self, request, format=None):
         serializer = pontuacao_serializer.PontuacaoSerializer(data=request.data)
@@ -23,13 +25,15 @@ class PontuacaoList(APIView):
             pontuacao_service.cadastrar_pontuacao(pontuacao_nova)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+'''
 
 class PontuacaoDetails(APIView):
     def get(self, request, id, format=None):
         pontuacao = pontuacao_service.listar_pontuacao_id(id)
         serializer = pontuacao_serializer.PontuacaoSerializer(pontuacao)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+#MANIPULAR PONTUAÇÃO APENAS QUANDO ATUALIZAR OS JOGOS - recursos no backend
 
     def put(self, request, id, format=None):
         pontuacao_antiga = pontuacao_service.listar_pontuacao_id(id)
@@ -43,7 +47,7 @@ class PontuacaoDetails(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def delete(self, request, id, format=None):
         pontuacao = pontuacao_service.listar_pontuacao_id(id)
         pontuacao_service.remover_pontuacao(pontuacao)
